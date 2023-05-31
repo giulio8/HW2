@@ -8,7 +8,7 @@ class User extends Model
 {
     protected $table = 'utenti';
     protected $primaryKey = 'username';
-    protected $incrementing = false;
+    public $incrementing = false;
     protected $keyType = 'string';
     public $timestamps = false;
 
