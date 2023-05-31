@@ -1,0 +1,73 @@
+.sub-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#user-form {
+    margin: 40px auto 20px auto;
+    padding: 20px;
+    border: 3px solid var(--main-theme-color);
+    border-radius: 25px;
+    background: var(--secondary-theme-color);
+}
+
+div.input {
+    padding: 10px;
+    margin: 10px;
+    font-size: var(--base-font-size);
+    border: 2px solid var(--main-theme-color);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+}
+
+div.input input {
+    padding: 10px;
+    margin: 10px;
+    font-size: var(--base-font-size);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+div.input input[type="date"] {
+    width: 230px;
+    box-sizing: border-box;
+}
+
+div.input label {
+    margin-right: 20px;
+}
+
+#username-input {
+    margin-bottom: 0;
+}
+
+.buttons-wrapper {
+    width: 100px;
+}
+
+.buttons{
+    width: 65.31px;
+}
+
+.icon {
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
+
+.modal-content{
+    background: white;
+    padding: 30px;
+    border-radius: 30px;
+}
+
+@media (max-width: 768px) {
+    .buttons-wrapper {
+        width: auto;
+    }
+}

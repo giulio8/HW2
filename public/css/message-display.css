@@ -1,0 +1,31 @@
+#error {
+    background-color: var(--warning-theme-color);
+    color: rgb(218, 13, 13);
+}
+
+#success {
+    color: darkgreen;
+    background-color: greenyellow;
+}
+
+#success, #error {
+    border-radius: 25px;
+    padding: 10px;
+    padding-bottom: 0;
+    margin: 20px 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: yellow;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#success div, #error div {
+    margin: 10px;
+}
+
+#success .icon, #error .icon {
+    height: 16px;
+    width: 16px;
+}

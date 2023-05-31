@@ -1,0 +1,90 @@
+
+.result-content {
+    margin-top: 50px;
+}
+
+.result-content .container {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    align-content: center;
+    max-width: var(--large-full-screen-width);
+    margin-bottom: 50px;
+}
+
+.biglietto {
+    padding: 20px;
+    border: 3px solid var(--main-theme-color);
+    border-radius: 25px;
+    background: var(--secondary-theme-color);
+}
+
+.biglietto .compagnia {
+    text-align: left;
+    margin-left: 0;
+    font-size: 1.15em;
+    color: var(--main-theme-color);
+}
+
+.biglietto .intestazione {
+    font-size: 1.25em;
+}
+
+.biglietto .intestazione span {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 3px;
+    line-height: 1.6em;
+}
+
+.biglietto p , .biglietto h3{
+    font-size: var(--base-font-size);
+    margin-left: 20px;
+}
+
+.biglietto .prezzo {
+    font-size: 1.5em;
+}
+
+.prezzo .int {
+    font-size: 1.5em;
+    color: var(--main-theme-color);
+}
+
+.prezzo .decimal, .prezzo .currency {
+    font-size: 1.25em;
+    color: var(--main-theme-color);
+}
+
+.biglietto .prezzo .info {
+    font-size: var(--base-font-size);
+}
+
+.biglietto .show-details {
+    cursor: pointer;
+    color: slategrey;
+}
+
+.show-details .arrow-details {
+    margin-right: 5px;
+    height: 16px;
+}
+
+.details{
+    font-size: 0.8em;
+}
+
+.details .container-tratte {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+}
+
+@media (max-width: 768px) {
+
+    .details .container-tratte {
+        flex-wrap: wrap;
+    }
+    
+}

@@ -1,0 +1,14 @@
+button.cancella {
+    max-width: 30%;
+}
+
+@media (max-width: 768px) {
+    div.input {
+        flex-direction: column;
+    }
+    
+    button.cancella {
+        max-width: 40%;
+    }
+    
+}
