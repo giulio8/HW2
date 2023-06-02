@@ -30,3 +30,17 @@ Route::get('profilo', [App\Http\Controllers\ProfileController::class, 'index']);
 Route::get('galleria', [App\Http\Controllers\GalleryController::class, 'index']);
 Route::get('prenotazioni', [App\Http\Controllers\BookingController::class, 'index']);
 Route::get('offerte', [App\Http\Controllers\FlightController::class, 'index']);
+
+Route::prefix('api')->group(function () {
+    Route::prefix('users')->group(function () {
+        Route::get("exists/{fieldname}", [UserController::class, 'existsField']);
+    });
+
+    Route::post('destinazione', [App\Http\Controllers\DestinationController::class, 'index']);
+
+    Route::prefix('destinazioni')->group(function () {
+        Route::get("", [App\Http\Controllers\DestinationController::class, 'getDestinazioni']);
+        Route::post("caricaDestinazione", [App\Http\Controllers\DestinationController::class, 'caricaDestinazione']);
+        Route::post("eliminaDestinazione", [App\Http\Controllers\DestinationController::class, 'eliminaDestinazione']);
+    });
+});

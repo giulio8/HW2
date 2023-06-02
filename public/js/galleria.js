@@ -1,60 +1,20 @@
 // image API /// ------------------------------
 
 function destRequest() {
-    return fetch("/api/destinazioni/getDestinazioni.php");
+    return fetch("/api/destinazioni");
 }
 
 function postImageRequest(formData) {
-    return fetch("/api/destinazioni/caricaDestinazione.php", {
+    return fetch("/api/destinazioni/caricaDestinazione", {
         method: "POST",
         body: formData
     });
 }
 
 function deleteImageRequest(formTitolo) {
-    return fetch("/api/destinazioni/eliminaDestinazione.php", {
+    return fetch("/api/destinazioni/eliminaDestinazione", {
         method: "POST",
         body: formTitolo
-    });
-}
-
-// --------------------------------------------
-// coordinates api
-
-function requestCoordinates(queryString) {
-    return fetch("/api/openweather/coordinates.php?q=" + encodeURIComponent(queryString));
-}
-// --------------------------------------------
-// flights api
-
-function airportRequest(lat, lon) {
-    return fetch("/api/voli/airport_by_coordinates.php?lat=" + lat + "&lon=" + lon);
-}
-
-// --------------------------------------------
-
-function onImageClick(event) {
-    showLoader();
-
-    // we requst the coordinates of the place
-    let place = event.target.dataset.title;
-    requestCoordinates(place).then(onSuccess, onError).then(json => {
-        console.log(json);
-        let lat = json.lat;
-        let lon = json.lon;
-
-        airportRequest(lat, lon).then(onSuccess, onError).then(json => {
-            console.log(json);
-            let airport = json.iataCode;
-            console.log(airport);
-            // get tomorrow's date
-            let tomorrow = new Date();
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            day_after = new Date();
-            day_after.setDate(day_after.getDate() + 2);
-            // we request the flights for the day after today
-            getFlights("CTA", airport, tomorrow.toISOString().split("T")[0], day_after.toISOString().split("T")[0]);
-        }).catch(onErrorFlReq);
     });
 }
 
@@ -72,7 +32,7 @@ function onTrovaVoliDestinazione(event) {
     const titolo_destinazione = event.currentTarget.dataset.title;
     console.log(titolo_destinazione);
     // We navigate to the flight offers page
-    window.location.href = "/app/offerte/offerte.php?luogo=" + titolo_destinazione;
+    window.location.href = "offerte/" + encodeUriComponent(titolo_destinazione);
 }
 
 
@@ -82,7 +42,14 @@ function onAlbumReturned(json) {
     //const directions = ["up", "down", "left", "right"];
     for (const i in json.data) {
         const img = json.data[i];
-        fetch("destinazione.php?title="+img.titolo+"&description="+img.descrizione+"&image="+img.immagine).then(resp => {return resp.text()}, onError).then(text => {
+        formData = new FormData();
+        formData.append("title", img.titolo);
+        formData.append("description", img.descrizione);
+        formData.append("image", img.immagine);
+        fetch("api/destinazione", {
+            method: "POST",
+            body: formData
+        }).then(resp => {return resp.text()}, onError).then(text => {
             list.innerHTML += text;
             deleteButtons = document.querySelectorAll(".elimina");
             for (const button of deleteButtons) {
