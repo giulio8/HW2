@@ -2,7 +2,7 @@
     width: 100vw;
 }
 section#introduction {
-    background-image: url("/app/assets/home-background.gif");
+    background-image: url("/assets/home-background.gif");
     background-size: cover;
 }
 

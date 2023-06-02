@@ -21,7 +21,7 @@ function jsonCheckEmail(json) {
         errors.delete("Email già utilizzata");
         emailBox.classList.remove('error');
     } else {
-        errors.add("Email già utilizzato");
+        errors.add("Email già utilizzata");
         emailBox.classList.add('error');
     }
     setErrorsDisplay(errors);
@@ -52,7 +52,7 @@ function checkUsername(event) {
     } else {
         errors.delete("Sono ammesse lettere, numeri e underscore. Max. 15");
         usernameBox.classList.remove('error');
-        fetch("/api/users/username_exists.php?username="+encodeURIComponent(input.value)).then(fetchResponse).then(jsonCheckUsername);
+        fetch("/api/users/exists/username?q="+encodeURIComponent(input.value)).then(fetchResponse).then(jsonCheckUsername);
     }    
     setErrorsDisplay(errors);
 }
@@ -66,7 +66,7 @@ function checkEmail(event) {
 
     } else {
         errors.delete("Email non valida");
-        fetch("/api/users/email_exists.php?q="+encodeURIComponent(String(emailInput.value).toLowerCase())).then(fetchResponse).then(jsonCheckEmail);
+        fetch("/api/users/exists/email?q="+encodeURIComponent(String(emailInput.value).toLowerCase())).then(fetchResponse).then(jsonCheckEmail);
     }
     setErrorsDisplay(errors);
 }
@@ -102,6 +102,7 @@ function checkConfirmPassword(event) {
 const form = document.querySelector('#signup-form');
 form["username"].addEventListener('blur', checkUsername);
 form["password"].addEventListener('blur', checkPassword);
+form["email"].addEventListener('blur', checkEmail);
 form["confirm-password"].addEventListener('blur', checkConfirmPassword);
 
 //let errors = new Set();
