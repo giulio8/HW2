@@ -6,4 +6,3 @@
     <div></div>
     <img class="close-message icon" src="../assets/exit.png">
 </div>
-<script src="{{ url('js/message-display.js') }}"></script>

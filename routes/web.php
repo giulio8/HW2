@@ -29,7 +29,8 @@ Route::get('home', [App\Http\Controllers\HomeController::class, 'index']);
 Route::get('profilo', [App\Http\Controllers\ProfileController::class, 'index']);
 Route::get('galleria', [App\Http\Controllers\GalleryController::class, 'index']);
 Route::get('prenotazioni', [App\Http\Controllers\BookingController::class, 'index']);
-Route::get('offerte', [App\Http\Controllers\FlightController::class, 'index']);
+Route::get('offerte/{luogo?}', [App\Http\Controllers\FlightController::class, 'index']);
+Route::post('biglietto', [App\Http\Controllers\BookingController::class, 'ticket']);
 
 Route::prefix('api')->group(function () {
     Route::prefix('users')->group(function () {
@@ -43,4 +44,6 @@ Route::prefix('api')->group(function () {
         Route::post("caricaDestinazione", [App\Http\Controllers\DestinationController::class, 'caricaDestinazione']);
         Route::post("eliminaDestinazione", [App\Http\Controllers\DestinationController::class, 'eliminaDestinazione']);
     });
+
+    Route::get('voli/getFlightOffers', [App\Http\Controllers\FlightController::class, 'getFlightOffers']);
 });

@@ -4,15 +4,18 @@ function flightsRequest(origin, destination, departureDate, returnDate) {
     destination = encodeURIComponent(destination);
     departureDate = encodeURIComponent(departureDate);
     returnDate = encodeURIComponent(returnDate);
-    return fetch("/api/voli/getFlightOffers.php?origin=" + origin + "&destination=" + destination + "&departureDate=" + departureDate + "&returnDate=" + returnDate);
+    return fetch("/api/voli/getFlightOffers?origin=" + origin + "&destination=" + destination + "&departureDate=" + departureDate + "&returnDate=" + returnDate);
 }
 
 function getTicketElement(flight) {
     formData = new FormData();
     formData.append("flight", JSON.stringify(flight));
-    return fetch("/app/biglietto/biglietto.php", {
+    return fetch("/biglietto", {
         method: "POST",
-        body: formData
+        body: formData,
+        headers: {
+        'X-CSRF-TOKEN': csrf_token
+        }
     });
 }
 
@@ -36,17 +39,6 @@ function prenotaVolo(event) {
     }).catch(onErrorFlReq);
 }
 
-function onShownFlightDetails(event) {
-    const showDetailsButton = event.currentTarget.parentElement.querySelector(".show-details");
-    showDetailsButton.querySelector(".text").textContent = "Nascondi dettagli";
-    showDetailsButton.querySelector(".arrow-details").src = "/app/assets/caret-up.png"; 
-}
-
-function onHiddenFlightDetails(event) {
-    const showDetailsButton = event.currentTarget.parentElement.querySelector(".show-details");
-    showDetailsButton.querySelector(".text").textContent = "Mostra dettagli";
-    showDetailsButton.querySelector(".arrow-details").src = "/app/assets/caret-down.png";
-}
 
 let flightsMap = {};
 

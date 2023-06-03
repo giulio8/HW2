@@ -32,7 +32,7 @@ function onTrovaVoliDestinazione(event) {
     const titolo_destinazione = event.currentTarget.dataset.title;
     console.log(titolo_destinazione);
     // We navigate to the flight offers page
-    window.location.href = "offerte/" + encodeUriComponent(titolo_destinazione);
+    window.location.href = "offerte/" + encodeURIComponent(titolo_destinazione);
 }
 
 

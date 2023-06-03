@@ -19,3 +19,5 @@ function hide(element) {
 function show(element) {
     element.classList.remove("hidden");
 }
+
+const csrf_token = document.head.querySelector('meta[name="csrf-token"]').content;
