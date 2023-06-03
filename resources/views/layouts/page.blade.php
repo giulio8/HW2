@@ -8,7 +8,7 @@
 @endsection
 
 @section('body')
-    @include('templates.navbar', ['filename' => basename($_SERVER['PHP_SELF'], ".php")])
+    @include('templates.navbar', ['filename' => $view_name])
     <div class="content">
         @yield('content')
     </div>
