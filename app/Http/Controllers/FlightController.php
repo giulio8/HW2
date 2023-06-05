@@ -223,18 +223,20 @@ class FlightController extends Controller
                     $segments = $itinerary['segments'];
                     $itinerary_resp = array();
                     foreach ($segments as $key => $segment) {
-                        $segments_resp[$key]['partenza'] = $segment['departure'];
+                        $segments_resp[$key]['origine'] = $segment['departure'];
+                        $segments_resp[$key]['data_partenza'] = $segment['departure']['at'];
                         if (!isset($city_map[$segment['departure']['iataCode']])) {
                             $city_map[$segment['departure']['iataCode']] = Airport::where('iata_code', $segment['departure']['iataCode'])->first();
                         }
-                        $segments_resp[$key]['partenza']['city'] = $city_map[$segment['departure']['iataCode']]['city'];
-                        $segments_resp[$key]['partenza']['country'] = $city_map[$segment['departure']['iataCode']]['country'];
-                        $segments_resp[$key]['arrivo'] = $segment['arrival'];
+                        $segments_resp[$key]['origine']['city'] = $city_map[$segment['departure']['iataCode']]['city'];
+                        $segments_resp[$key]['origine']['country'] = $city_map[$segment['departure']['iataCode']]['country'];
+                        $segments_resp[$key]['destinazione'] = $segment['arrival'];
+                        $segments_resp[$key]['data_arrivo'] = $segment['arrival']['at'];
                         if (!isset($city_map[$segment['arrival']['iataCode']])) {
                             $city_map[$segment['arrival']['iataCode']] = Airport::where('iata_code', $segment['arrival']['iataCode'])->first();
                         }
-                        $segments_resp[$key]['arrivo']['city'] = $city_map[$segment['arrival']['iataCode']]['city'];
-                        $segments_resp[$key]['arrivo']['country'] = $city_map[$segment['arrival']['iataCode']]['country'];
+                        $segments_resp[$key]['destinazione']['city'] = $city_map[$segment['arrival']['iataCode']]['city'];
+                        $segments_resp[$key]['destinazione']['country'] = $city_map[$segment['arrival']['iataCode']]['country'];
                     }
                     $itinerary_resp['tratte'] = $segments_resp;
                     if ($idx === 0)

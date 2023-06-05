@@ -26,7 +26,7 @@ Route::post('signup', [LoginController::class, 'do_signup']);
 Route::get('logout', [LoginController::class, 'logout']);
 
 Route::get('home', [App\Http\Controllers\HomeController::class, 'index']);
-Route::get('profilo', [App\Http\Controllers\ProfileController::class, 'index']);
+Route::get('profilo', [App\Http\Controllers\UserController::class, 'index']);
 Route::get('galleria', [App\Http\Controllers\GalleryController::class, 'index']);
 Route::get('prenotazioni', [App\Http\Controllers\BookingController::class, 'index']);
 Route::get('offerte/{luogo?}', [App\Http\Controllers\FlightController::class, 'index']);
@@ -35,6 +35,8 @@ Route::post('biglietto', [App\Http\Controllers\BookingController::class, 'ticket
 Route::prefix('api')->group(function () {
     Route::prefix('users')->group(function () {
         Route::get("exists/{fieldname}", [UserController::class, 'existsField']);
+        Route::get("getUserInfo", 'App\Http\Controllers\UserController@getUserInfo');
+        Route::post('updateUserInfo', 'App\Http\Controllers\UserController@updateUserInfo');
     });
 
     Route::post('destinazione', [App\Http\Controllers\DestinationController::class, 'index']);
@@ -46,4 +48,10 @@ Route::prefix('api')->group(function () {
     });
 
     Route::get('voli/getFlightOffers', [App\Http\Controllers\FlightController::class, 'getFlightOffers']);
+
+    Route::prefix("prenotazioni")->group(function () {
+        Route::get('getPrenotazioni', [App\Http\Controllers\BookingController::class, 'getPrenotazioni']);
+        Route::post('bookFlight', [App\Http\Controllers\BookingController::class, 'bookFlight']);
+        Route::post('eliminaPrenotazione', [App\Http\Controllers\BookingController::class, 'deleteFlight']);
+    });
 });

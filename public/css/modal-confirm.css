@@ -1,0 +1,16 @@
+#modal-confirm .modal-content {
+    background-color: white;
+    color: black;
+    padding: 20px;
+    border-radius: 20px;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#modal-confirm .buttons {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+}

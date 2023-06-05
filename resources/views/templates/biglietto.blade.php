@@ -5,8 +5,8 @@ $valuta = $volo->valuta;
 $andata = $volo->andata;
 $ritorno = $volo->ritorno;
 $compagnia = $volo->compagnia;
-$origine = $andata->tratte[0]->partenza->city;
-$destinazione = $andata->tratte[count($andata->tratte) - 1]->arrivo->city;
+$origine = $andata->tratte[0]->origine->city;
+$destinazione = $andata->tratte[count($andata->tratte) - 1]->destinazione->city;
 $n_scali = count($andata->tratte) - 1;
 ?>
 
@@ -14,7 +14,7 @@ $n_scali = count($andata->tratte) - 1;
 <div class="biglietto">
     <p class="compagnia">{{ $compagnia }}</p>
     <p class="intestazione">da <span> {{ $origine }} </span> a <span>{{ $destinazione }} </span></p>
-    <p class="scali">Scali: {{ $n_scali }}</p>
+    <p class="scali">@if ($n_scali > 0) Scali: {{ $n_scali }} @else Volo diretto @endif</p>
     <p class="prezzo">Prezzo totale:
         <?php $parti = explode('.', $prezzo);
         $int = $parti[0];

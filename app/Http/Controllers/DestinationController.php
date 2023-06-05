@@ -17,7 +17,7 @@ class DestinationController extends Controller
         $title = request('title');
         $description = request('description');
         $image = request('image');
-        return view('destinazione')->with('title', $title)->with('description', $description)->with('image', $image);
+        return view('templates.destinazione')->with('title', $title)->with('description', $description)->with('image', $image);
     }
 
     public function getDestinazioni()

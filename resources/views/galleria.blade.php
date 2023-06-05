@@ -3,8 +3,10 @@
 @section('head')
     @parent
     <link rel="stylesheet" href="{{ url('css/galleria.css') }}">
+    <link rel="stylesheet" href="{{ url('css/modal-confirm.css') }}">
     <script src="{{ url('js/galleria.js') }}" defer="True"></script>
     <script src="{{ url('js/loader.js') }}" defer="True"></script>
+    <script src="{{ url('js/modal-confirm.js') }}" defer="True"></script>
 @endsection
 
 @section('content')
@@ -29,11 +31,11 @@
 
     @include('templates.loader')
     @include('templates.message-display')
+    @include('templates.modal-confirm')
     </section>
     <section>
         <div id="modal-add-dest" class="app-modal hidden">
             <div class="modal-content">
-                <span class="close">&times;</span>
                 <form id="post-image-form" name="postImage">
                     <div id="img-input" class="input">
                         <label for="img">Scegli una foto da postare!</label>

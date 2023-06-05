@@ -1,9 +1,9 @@
 function getUserInfoRequest() {
-    return fetch("/api/users/getUserInfo.php");
+    return fetch("/api/users/getUserInfo");
 }
 
 function updateUserInfoRequest(formData) {
-    return fetch("/api/users/updateUserInfo.php", {
+    return fetch("/api/users/updateUserInfo", {
         method: "POST",
         body: formData
     });
@@ -43,7 +43,7 @@ function onEdit(event) {
     const input = form[id];
     input.disabled = false;
     input.focus();
-    input.addEventListener("keypress", e => {if (e.key === "Enter") onSave(event);});
+    input.addEventListener("keypress", e => { if (e.key === "Enter") onSave(event); });
     saveButton.addEventListener("click", onSave);
     editButton.removeEventListener("click", onEdit);
     cancelButton.addEventListener("click", onCancel);
@@ -60,20 +60,18 @@ function fillForm(json) {
     form["lastname"].value = json.lastname;
     form["email"].value = json.email;
     form["birthdate"].value = json.birthdate;
-    hideLoader();
 }
 
 function onErrorUsrReq(errorResp) {
     console.log(errorResp)
     errorResp.then(errors => {
         displayErrors(errors);
-        hideLoader();
     });
 }
 
 function getButton(type, id) {
     //console.log(type, id);
-    let buttonsDiv = document.querySelector("#"+id+"-input .buttons");
+    let buttonsDiv = document.querySelector("#" + id + "-input .buttons");
     return buttonsDiv.querySelector("." + type);
 }
 
@@ -101,36 +99,20 @@ for (const editButton of editButtons)
 
 function loadContent() {
     showLoader();
-    getUserInfoRequest().then(onSuccess, onError).then(fillForm).catch(onErrorUsrReq);
+    getUserInfoRequest().then(onSuccess, onError).then(fillForm).catch(onErrorUsrReq)
+        .finally(hideLoader);
 }
 
 function logout() {
-    location.href = "/app/logout.php";
-}
-
-function hideLogoutModal() {
-    hide(modalLogout);
-
-    const closeButton = modalLogout.querySelector("#close-button");
-    closeButton.removeEventListener("click", hideLogoutModal);
-    const confirmButton = modalLogout.querySelector("#confirm-button");
-    confirmButton.removeEventListener("click", logout);
-}
-
-function showLogoutModal() {
-    show(modalLogout);
-    const closeButton = modalLogout.querySelector("#close-button");
-    closeButton.addEventListener("click", hideLogoutModal);
-    const confirmButton = modalLogout.querySelector("#confirm-button");
-    confirmButton.addEventListener("click", logout);
+    askConfirmModal("Sei sicuro di voler effettuare il logout?").then( () => {
+        location.href = "logout";
+    });
 }
 
 const form = document.forms["user"];
 form.addEventListener("submit", e => e.preventDefault());
 
 const logoutButton = document.querySelector("#logout");
-logoutButton.addEventListener("click", showLogoutModal);
-
-const modalLogout = document.querySelector("#modal-logout");
+logoutButton.addEventListener("click", logout);
 
 loadContent();

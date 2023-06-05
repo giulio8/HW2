@@ -1,22 +1,27 @@
 function prenotazioniRequest() {
-    return fetch("/api/prenotazioni/getPrenotazioni.php");
+    return fetch("/api/prenotazioni/getPrenotazioni");
 }
 
 function cancellaPrenotazioneRequest(id) {
-    formData = new FormData();
-    formData.append("id", id);
-    return fetch("/api/prenotazioni/eliminaPrenotazione.php", {
-        method: "POST",
-        body: formData
+    askConfirmModal("Sei sicuro di voler cancellare la prenotazione?").then(() => {
+        formData = new FormData();
+        formData.append("id", id);
+        return fetch("/api/prenotazioni/eliminaPrenotazione", {
+            method: "POST",
+            body: formData
+        });
     });
 }
 
 function getTicketElement(flight) {
     formData = new FormData();
     formData.append("flight", JSON.stringify(flight));
-    return fetch("/app/biglietto/biglietto.php", {
+    return fetch("/biglietto", {
         method: "POST",
-        body: formData
+        body: formData,
+        headers: {
+            'X-CSRF-TOKEN': csrf_token
+        }
     });
 }
 
@@ -34,7 +39,7 @@ function cancellaPrenotazione(event) {
 function onShownFlightDetails(event) {
     const showDetailsButton = event.currentTarget.parentElement.querySelector(".show-details");
     showDetailsButton.querySelector(".text").textContent = "Nascondi dettagli";
-    showDetailsButton.querySelector(".arrow-details").src = "/app/assets/caret-up.png"; 
+    showDetailsButton.querySelector(".arrow-details").src = "/app/assets/caret-up.png";
 }
 
 function onHiddenFlightDetails(event) {
@@ -74,15 +79,14 @@ function onErrorFlReq(errorResp) {
     console.log(errorResp);
     errorResp.then(errors => {
         displayErrors(errors);
-        hideLoader();
     });
 }
 
 showLoader();
 prenotazioniRequest().then(onSuccess, onError).then(json => {
     createTickets(json);
-    hideLoader();
-}).catch(onErrorFlReq);
+}).catch(onErrorFlReq)
+    .finally(hideLoader);
 
 
 const result = document.querySelector("#result");

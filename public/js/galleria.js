@@ -1,5 +1,3 @@
-// image API /// ------------------------------
-
 function destRequest() {
     return fetch("/api/destinazioni");
 }
@@ -19,13 +17,16 @@ function deleteImageRequest(formTitolo) {
 }
 
 function onEliminaDestinazione(event) {
-    const titolo = event.currentTarget.dataset.title;
-    formTitolo = new FormData();
-    formTitolo.append("titolo", titolo);
-    deleteImageRequest(formTitolo).then(onSuccess, onError).then(json => {
-        console.log(json);
-        window.location.reload();
+    askConfirmModal("Sei sicuro di voler eliminare questa destinazione?").then(() => {
+        const titolo = event.target.dataset.title;
+        formTitolo = new FormData();
+        formTitolo.append("titolo", titolo);
+        deleteImageRequest(formTitolo).then(onSuccess, onError).then(json => {
+            console.log(json);
+            loadPage();
+        });
     });
+
 }
 
 function onTrovaVoliDestinazione(event) {
@@ -39,6 +40,7 @@ function onTrovaVoliDestinazione(event) {
 function onAlbumReturned(json) {
     console.log(json)
     const list = document.querySelector("#gallery");
+    list.innerHTML = "";
     //const directions = ["up", "down", "left", "right"];
     for (const i in json.data) {
         const img = json.data[i];
@@ -49,10 +51,11 @@ function onAlbumReturned(json) {
         fetch("api/destinazione", {
             method: "POST",
             body: formData
-        }).then(resp => {return resp.text()}, onError).then(text => {
+        }).then(resp => { return resp.text() }, onError).then(text => {
             list.innerHTML += text;
             deleteButtons = document.querySelectorAll(".elimina");
             for (const button of deleteButtons) {
+                const message = "Sei sicuro di voler eliminare la destinazione " + button.dataset.title + "?";
                 button.addEventListener("click", onEliminaDestinazione);
             }
             voliButtons = document.querySelectorAll(".trova-voli");
@@ -69,35 +72,36 @@ function postImage(event) {
     let form = document.forms["postImage"];
     let formdata = new FormData(form);
 
-    // we show the loading animation and hide all the form, then scroll to bottom
     showLoader();
     hide(modalAddDest);
-    form.classList.add("hidden");
 
-
-    // show the error message if the image is not uploaded
-    // and hide the loading animation
     function onErrorImReq(errorResp) {
         errorResp.then(errors => {
             displayErrors(errors);
-            hideLoader();
-            form.classList.remove("hidden");
-            window.scrollTo(0, document.body.scrollHeight);
         });
     }
 
     postImageRequest(formdata).then(onSuccess, onError).then(json => {
         console.log(json);
-        location.reload();
-    }).catch(onErrorImReq);
+        loadPage();
+    }).catch(onErrorImReq)
+    .finally(hideLoader);
 
 }
 
 function showModalAddDest(event) {
+    const form = document.forms["postImage"];
+    form.reset();
     show(modalAddDest);
 }
 
-destRequest().then(onSuccess, onError).then(onAlbumReturned);
+function loadPage() {
+    showLoader();
+    destRequest().then(onSuccess, onError).then(onAlbumReturned)
+    .finally(hideLoader);
+}
+
+loadPage();
 
 const postButton = document.querySelector("#post-button");
 // prevent button from submitting form
@@ -125,8 +129,8 @@ function revealSection() {
             elementVisible = -400;
         if (elementTop < windowHeight - elementVisible) {
             reveal.classList.add("active");
-          } else {
+        } else {
             reveal.classList.remove("active");
-          }
-      }
+        }
+    }
 }

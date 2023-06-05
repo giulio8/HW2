@@ -8,19 +8,14 @@ use Session;
 
 class UserController extends Controller
 {
-    public function view($collection_id)
+    public function index()
     {
         // Controllo accesso
-        if (!Session::get('user_id')) {
+        if (!Session::get('username')) {
             return redirect('login');
         }
-        // Controllo permessi
-        $collection = Collection::find($collection_id);
-        if ($collection->user_id != Session::get('user_id')) {
-            return redirect('home');
-        }
         // Mostriamo la view
-        return view('collection')->with('collection', $collection);
+        return view('profilo');
     }
 
     public function existsField($fieldname)
@@ -40,6 +35,68 @@ class UserController extends Controller
 
         }
         return response()->json($response, $status);
+    }
+
+    public function getUserInfo() 
+    {
+         if (!$username = Session::get('username')) {
+            http_response_code(401);
+            exit;
+        }
+
+        $error = array();
+        $user = User::where('username', $username)->first();
+        if (!$user) {
+            $code = 404;
+            $error[] = 'Utente non trovato';
+        }
+
+        if (count($error) > 0) {
+            isset($code) ?: $code = 500;
+            return response()->json($error, $code);
+        } else {
+            return response()->json($user);
+        }
+    }
+
+    public function updateUserInfo()
+    {
+        if (!$username = Session::get('username')) {
+            http_response_code(401);
+            exit;
+        }
+
+        $error = array();
+
+        if (!(empty(request("firstname")) && empty(request("lastname")) && empty(request("birthdate")) && empty(request("email")))) {
+            $user = User::where('username', $username)->first();
+            if (!empty(request("firstname"))) {
+                $user->firstname = request("firstname");
+            }
+            if (!empty(request("lastname"))) {
+                $user->lastname = request("lastname");
+            }
+            if (!empty(request("birthdate"))) {
+                $user->birthdate = request("birthdate");
+            }
+            if (!empty(request("email"))) {
+                $user->email = request("email");
+            }
+            if (!$user->save()) {
+                $error[] = 'Errore durante il salvataggio';
+                $code = 500;
+            }
+        } else {
+            $error[] = 'Nessun campo da aggiornare';
+            $code = 400;
+        }
+
+        if (count($error) > 0) {
+            isset($code) ?: $code = 500;
+            return response()->json($error, $code);
+        } else {
+            return response()->json(["message" => "Utente aggiornato correttamente"]);
+        }
     }
 
 

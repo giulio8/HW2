@@ -22,7 +22,7 @@ function getTicketElement(flight) {
 function bookFlightRequest(flight) {
     var formData = new FormData();
     formData.append('flight', JSON.stringify(flight));
-    return fetch("/api/prenotazioni/bookFlight.php", {
+    return fetch("/api/prenotazioni/bookFlight", {
         method: "POST",
         body: formData
     });
@@ -35,7 +35,7 @@ function prenotaVolo(event) {
     bookFlightRequest(flight).then(onSuccess, onError).then(json => {
         console.log(json);
         alert("Prenotazione effettuata con successo!");
-        window.location.href = "/app/prenotazioni/prenotazioni.php";
+        window.location.href = "/prenotazioni";
     }).catch(onErrorFlReq);
 }
 
@@ -73,7 +73,6 @@ function onErrorFlReq(errorResp) {
     console.log(errorResp);
     errorResp.then(errors => {
         displayErrors(errors);
-        hideLoader();
         form.classList.remove("hidden");
         window.scrollTo(0, document.body.scrollHeight);
     });
@@ -97,8 +96,8 @@ function search(event) {
         createTickets(flights);
         hide(form);
         show(backButton);
-        hideLoader();
-    }).catch(onErrorFlReq);
+    }).catch(onErrorFlReq)
+    .finally(hideLoader);
 
 }
 
