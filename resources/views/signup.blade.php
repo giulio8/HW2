@@ -28,33 +28,33 @@
                 <form id="signup-form" name='signup' method='post' enctype="multipart/form-data" autocomplete="off">
                     @csrf
                     <div class="input-container">
-                        <div id="firstname-input" class="input">
+                        <div id="firstname-input" class="app-input-box">
                             <label for='firstname'>Nome</label>
                             <input type='text' name='firstname' value='{{ old('firstname') }}'>
                         </div>
-                        <div id="lastname-input" class="input">
+                        <div id="lastname-input" class="app-input-box">
                             <label for='lastname'>Cognome</label>
                             <input type='text' name='lastname' value='{{ old('lastname') }}'>
                         </div>
-                        <div id="birthdate-input" class="input">
+                        <div id="birthdate-input" class="app-input-box">
                             <label for='birthdate'>Data di nascita</label>
                             <input type='date' name='birthdate' value='{{ old('birthdate') }}'>
                         </div>
-                        <div id="email-input" class="input">
+                        <div id="email-input" class="app-input-box">
                             <label for='email'>Email</label>
                             <input type='email' name='email' value='{{ old('email') }}'>
                         </div>
-                        <div id="username-input" class="input">
+                        <div id="username-input" class="app-input-box">
                             <label for='username'>Nome utente</label>
                             <input type='text' name='username' value='{{ old('username') }}'>
 
                         </div>
                         <div>
-                            <div id="password-input" class="input">
+                            <div id="password-input" class="app-input-box">
                                 <label for='password'>Password</label>
                                 <input type='password' name='password' value='{{ old('password') }}'>
                             </div>
-                            <div id="confirm-password-input" class="input">
+                            <div id="confirm-password-input" class="app-input-box">
                                 <label for='confirm-password'>Conferma Password</label>
                                 <input type='password' name='confirm-password' value='{{ old('confirm-password') }}'>
                             </div>

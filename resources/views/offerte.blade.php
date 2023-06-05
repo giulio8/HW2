@@ -31,21 +31,21 @@
     <section>
         <form id="search-form">
             @csrf
-            <div id="origin-input" class="input">
+            <div id="origin-input" class="app-input-box">
                 <label for="origin">Partenza da</label>
                 <input type="text" name="origin" id="origin" placeholder="Luogo di partenza">
             </div>
-            <div id="destination-input" class="input">
+            <div id="destination-input" class="app-input-box">
                 <label for="destination">Destinazione</label>
                 <input type="text" name="destination" id="ritorno"
                     @if (isset($luogo) && $luogo !== null) value="{{ $luogo }}" @endif
                     placeholder="Luogo di destinazione">
             </div>
-            <div id="departureDate-input" class="input">
+            <div id="departureDate-input" class="app-input-box">
                 <label for="departureDate">Data di partenza</label>
                 <input type="date" name="departureDate" id="departureDate">
             </div>
-            <div id="returnDate-input" class="input">
+            <div id="returnDate-input" class="app-input-box">
                 <label for="returnDate">Data di ritorno</label>
                 <input type="date" name="returnDate" id="returnDate">
             </div>

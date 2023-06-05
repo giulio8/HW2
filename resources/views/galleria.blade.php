@@ -37,15 +37,15 @@
         <div id="modal-add-dest" class="app-modal hidden">
             <div class="modal-content">
                 <form id="post-image-form" name="postImage">
-                    <div id="img-input" class="input">
+                    <div id="img-input" class="app-input-box">
                         <label for="img">Scegli una foto da postare!</label>
                         <input type="file" name="image" accept="image/png, image/jpeg">
                     </div>
-                    <div id="title-input" class="input">
+                    <div id="title-input" class="app-input-box">
                         <label for="titolo">Titolo</label>
                         <input type="text" name="titolo" id="titolo" placeholder="Luogo di destinazione">
                     </div>
-                    <div id="description-input" class="input">
+                    <div id="description-input" class="app-input-box">
                         <label for="description">Inserisci una descrizione</label>
                         <input type="text" name="descrizione">
                     </div>

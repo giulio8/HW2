@@ -87,7 +87,7 @@ function hideButtons(event) {
         hide(buttonsDiv);
 }
 
-let inputDivs = document.querySelectorAll("div .input");
+let inputDivs = document.querySelectorAll("div .app-input-box");
 for (const inputDiv of inputDivs) {
     inputDiv.addEventListener("mouseover", showButtons);
     inputDiv.addEventListener("mouseout", hideButtons);

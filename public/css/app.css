@@ -55,6 +55,28 @@ body {
   align-items: center;
 }
 
+div.app-input-box {
+  flex: 1;
+  padding: 10px;
+  margin: 10px;
+  font-size: var(--base-font-size);
+  border: 2px solid var(--main-theme-color);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+}
+
+div.app-input-box input {
+    padding: 10px;
+    margin: 10px;
+    font-size: var(--base-font-size);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
 .app-button,
 .app-dismiss-button {
   padding: 10px;

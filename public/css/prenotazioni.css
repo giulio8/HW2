@@ -3,7 +3,7 @@ button.cancella {
 }
 
 @media (max-width: 768px) {
-    div.input {
+    div.app-input-box {
         flex-direction: column;
     }
     

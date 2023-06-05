@@ -13,34 +13,12 @@
     background: var(--secondary-theme-color);
 }
 
-div.input {
-    padding: 10px;
-    margin: 10px;
-    font-size: var(--base-font-size);
-    border: 2px solid var(--main-theme-color);
-    border-radius: 4px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    background-color: white;
-}
-
-div.input input {
-    padding: 10px;
-    margin: 10px;
-    font-size: var(--base-font-size);
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-div.input input[type="date"] {
+div.app-input-box input[type="date"] {
     width: 230px;
     box-sizing: border-box;
 }
 
-div.input label {
+div.app-input-box label {
     margin-right: 20px;
 }
 
@@ -52,7 +30,7 @@ div.input label {
     width: 100px;
 }
 
-.buttons{
+div.app-input-box .buttons{
     width: 65.31px;
 }
 

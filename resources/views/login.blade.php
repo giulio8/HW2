@@ -28,11 +28,11 @@
                 <form id="login-form" name='login' method='post' enctype="multipart/form-data" autocomplete="off">
                     @csrf
                     <div class="input-container">
-                        <div id="username-input" class="input">
+                        <div id="username-input" class="app-input-box">
                             <label for='username'>Nome utente</label>
                             <input type='text' name='username' value='{{ old('username') }}'>
                         </div>
-                        <div id="password-input" class="input">
+                        <div id="password-input" class="app-input-box">
                             <label for='password'>Password</label>
                             <input type='password' name='password' value='{{ old('password') }}'>
                         </div>

@@ -3,6 +3,7 @@
 @section('head')
     @parent
     <link rel="stylesheet" href="{{ url('css/profilo.css') }}">
+    <link rel="stylesheet" href="{{ url('css/modal-confirm.css') }}">
     <script src="{{ url('js/profilo.js') }}" defer="True"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="{{ url('js/modal-confirm.js') }}" defer="True"></script>
@@ -27,7 +28,7 @@
                 'username' => 'Nome utente', 'firstname' => 'Nome', 'lastname' => 'Cognome', 'birthdate' => 'Data di nascita', 'email' => 'Email'
                 ]; ?>
             @foreach ($fields as $field => $label)
-                <div id="{{ $field }}-input" class="input">
+                <div id="{{ $field }}-input" class="app-input-box">
                     <label for='{{ $field }}'>{{ $label }}</label>
                     @if ($field !== 'username')
                         <div class="buttons-wrapper">

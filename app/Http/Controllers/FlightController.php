@@ -49,14 +49,18 @@ class FlightController extends Controller
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $response = curl_exec($curl);
         curl_close($curl);
-        if ($response) {
-            $responseArray = json_decode($response, true); //
-            if (count($responseArray) > 0) {
-                return $responseArray[0];
+        try {
+            if ($response) {
+                $responseArray = json_decode($response, true); //
+                if (count($responseArray) > 0) {
+                    return $responseArray[0];
+                } else {
+                    return null;
+                }
             } else {
-                return null;
+                throw new \Exception("Errore nella richiesta delle coordinate");
             }
-        } else {
+        } catch (\Exception $e) {
             throw new \Exception("Errore nella richiesta delle coordinate");
         }
         /*$responseArray = array(
@@ -113,7 +117,7 @@ class FlightController extends Controller
             $lat = $coordinates["lat"];
             $lon = $coordinates["lon"];
         } catch (\Exception $e) {
-            throw $e;
+            throw new \Exception("Errore nella richiesta delle coordinate");
         }
         //
 
@@ -127,17 +131,19 @@ class FlightController extends Controller
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $response = curl_exec($curl);
         curl_close($curl);
-        if ($response && isset(json_decode($response, true)['data'])) {
-            $response = json_decode($response, true);
-            if ($response['meta']['count'] == 0) {
-                return null;
+        try { // In alcuni casi la risposta non ha tutti i campi e solleva un errore
+            if ($response && isset(json_decode($response, true)['data'])) {
+                $response = json_decode($response, true);
+                if ($response['meta']['count'] == 0) {
+                    return null;
+                }
+                return $response['data'][0];
+            } else {
+                throw new \Exception("Errore nella richiesta degli aeroporti");
             }
-            return $response['data'][0];
-        } else {
+        } catch (\Exception $e) {
             throw new \Exception("Errore nella richiesta degli aeroporti");
-        } //
-
-        //return json_decode(file_get_contents("airport.json"), true);
+        }
     }
 
     private function flightRequest($origin_code, $destination_code, $departureDate, $returnDate)
@@ -183,8 +189,16 @@ class FlightController extends Controller
 
         // Get the IATA codes for the origin and destination
         try {
-            $origin_code = $this->airportRequest($origin)["iataCode"];
-            $destination_code = $this->airportRequest($destination)["iataCode"];
+            $origin_airport = $this->airportRequest($origin);
+            $destination_airport = $this->airportRequest($destination);
+            if ($origin_airport == null) {
+                $error[] = "Aeroporto di partenza non trovato";
+            } else if ($destination_airport == null) {
+                $error[] = "Aeroporto di arrivo non trovato";
+            } else {
+                $origin_code = $this->airportRequest($origin)["iataCode"];
+                $destination_code = $this->airportRequest($destination)["iataCode"];
+            }
         } catch (\Exception $e) {
             $code = 500;
             $error[] = $e->getMessage();
