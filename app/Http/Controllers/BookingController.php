@@ -68,7 +68,7 @@ class BookingController extends Controller
 
         // Controllo che l'utente sia maggiorenne
         $user = User::where('username', $username)->first();
-        if ($user->birthdate <= date('Y-m-d', strtotime('-18 years'))) {
+        if ($user->birthdate > date('Y-m-d', strtotime('-18 years'))) {
             $code = 400;
             $error[] = "Utente minorenne";
         }
@@ -88,6 +88,7 @@ class BookingController extends Controller
             $destinazione = $flight["andata"]["tratte"][count($flight["andata"]["tratte"]) - 1]["destinazione"]["iataCode"];
             $prezzo = $flight["prezzo"];
             $valuta = $flight["valuta"];
+            $bagaglio = $flight["bagaglio"];
             $data_partenza = $flight["andata"]["tratte"][0]["data_partenza"];
             $data_arrivo = $flight["andata"]["tratte"][count($flight["andata"]["tratte"]) - 1]["data_arrivo"];
             $compagnia = $flight["compagnia"];
@@ -101,6 +102,7 @@ class BookingController extends Controller
                 $prenotazione->destinazione = $destinazione;
                 $prenotazione->prezzo = $prezzo;
                 $prenotazione->valuta = $valuta;
+                $prenotazione->bagaglio = $bagaglio;
                 $prenotazione->data_partenza = $data_partenza;
                 $prenotazione->data_arrivo = $data_arrivo;
                 $prenotazione->compagnia = $compagnia;

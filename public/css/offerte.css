@@ -17,13 +17,32 @@ button.prenota {
     max-width: 30%;
 }
 
+#modal-booking .modal-content {
+    background-color: var(--main-theme-color);
+}
+
+#booking-error {
+    background-color: var(--warning-theme-color);
+    color: rgb(218, 13, 13);
+    border-radius: 25px;
+    padding: 10px;
+    padding-bottom: 0;
+    margin: 20px 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: yellow;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 @media (max-width: 768px) {
     div.app-input-box {
         flex-direction: column;
     }
-    
+
     button.prenota {
         max-width: 40%;
     }
-    
+
 }

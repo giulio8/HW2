@@ -26,7 +26,7 @@ Route::post('signup', [LoginController::class, 'do_signup']);
 Route::get('logout', [LoginController::class, 'logout']);
 
 Route::get('home', [App\Http\Controllers\HomeController::class, 'index']);
-Route::get('profilo', [App\Http\Controllers\UserController::class, 'index']);
+Route::get('profilo', 'App\Http\Controllers\UserController@index');
 Route::get('galleria', [App\Http\Controllers\GalleryController::class, 'index']);
 Route::get('prenotazioni', [App\Http\Controllers\BookingController::class, 'index']);
 Route::get('offerte/{luogo?}', [App\Http\Controllers\FlightController::class, 'index']);
@@ -34,7 +34,7 @@ Route::post('biglietto', [App\Http\Controllers\BookingController::class, 'ticket
 
 Route::prefix('api')->group(function () {
     Route::prefix('users')->group(function () {
-        Route::get("exists/{fieldname}", [UserController::class, 'existsField']);
+        Route::get("exists/{fieldname}", 'App\Http\Controllers\UserController@existsField');
         Route::get("getUserInfo", 'App\Http\Controllers\UserController@getUserInfo');
         Route::post('updateUserInfo', 'App\Http\Controllers\UserController@updateUserInfo');
     });

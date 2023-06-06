@@ -61,6 +61,21 @@
             </div>
         </div>
     </section>
+    <section>
+        <div id="modal-booking" class="app-modal hidden">
+            <div class="modal-content">
+                <form id="booking-form" name="booking">
+                    <div id="luggage-input" class="app-input-box">
+                        <label for="bagaglio">Bagagli</label>
+                        <input type="number" max="3" value="1" name="bagaglio" id="bagaglio" placeholder="Numero di bagagli">
+                    </div>
+                    <div id="booking-error" class="hidden">
+                    </div>
+                    <button id="confirm-button" class="app-button">Prenota</button>
+                    <button id="close-button" class="app-dismiss-button">Annulla</button>
+                </form>
+            </div>
+    </section>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>

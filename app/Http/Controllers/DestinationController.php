@@ -37,10 +37,10 @@ class DestinationController extends Controller
 
     public function caricaDestinazione()
     {
-        /* if (!$userId = Session::get('username')) {
+        if (!$username = Session::get('username')) {
             http_response_code(401);
             exit;
-        } */$userId = "pippo1";
+        }
 
         $error = array();
 
@@ -49,7 +49,6 @@ class DestinationController extends Controller
             $error[] = "Dati insufficienti";
         } else {
             // Set the variables for the query
-            $username = $userId;
             $titolo = request('titolo');
             $descrizione = request('descrizione');
             $file = Request::file('image');
@@ -119,10 +118,10 @@ class DestinationController extends Controller
 
     public function eliminaDestinazione()
     {
-        /* if (!$username = Session::get('username')) {
+        if (!$username = Session::get('username')) {
             http_response_code(401);
             exit;
-        } */$username = "pippo1";
+        }
 
         $error = array();
 

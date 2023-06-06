@@ -2,6 +2,9 @@
 $id = $volo->id;
 $prezzo = $volo->prezzo;
 $valuta = $volo->valuta;
+if (isset($volo->bagaglio)) {
+    $bagaglio = $volo->bagaglio;
+}
 $andata = $volo->andata;
 $ritorno = $volo->ritorno;
 $compagnia = $volo->compagnia;
@@ -27,6 +30,9 @@ $n_scali = count($andata->tratte) - 1;
 
     <div class="details collapse" data-id="{{ $id }}">
         <hr>
+        @if (isset($bagaglio))
+            <p class="bagaglio">Bagagli inclusi: {{ $bagaglio }}</p>
+        @endif
         <div class="container-tratte">
             <div class="andata">
                 <h2 class="title">Andata</h2>

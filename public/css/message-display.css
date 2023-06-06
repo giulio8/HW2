@@ -4,8 +4,7 @@
 }
 
 #success {
-    color: darkgreen;
-    background-color: greenyellow;
+    background-color: chartreuse;
 }
 
 #success, #error {
@@ -15,7 +14,6 @@
     margin: 20px 0;
     font-size: 18px;
     font-weight: bold;
-    color: yellow;
     display: flex;
     flex-direction: row;
     justify-content: space-between;

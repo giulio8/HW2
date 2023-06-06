@@ -116,7 +116,10 @@ const addDestButton = document.querySelector("#aggiungi");
 addDestButton.addEventListener("click", showModalAddDest);
 
 const closeButton = document.querySelector("#close-button");
-closeButton.addEventListener("click", () => hide(modalAddDest));
+closeButton.addEventListener("click", e => {
+    e.preventDefault(); 
+    hide(modalAddDest);
+});
 
 
 function revealSection() {

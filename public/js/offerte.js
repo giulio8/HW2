@@ -14,7 +14,7 @@ function getTicketElement(flight) {
         method: "POST",
         body: formData,
         headers: {
-        'X-CSRF-TOKEN': csrf_token
+            'X-CSRF-TOKEN': csrf_token
         }
     });
 }
@@ -29,14 +29,26 @@ function bookFlightRequest(flight) {
 }
 
 function prenotaVolo(event) {
-    const id = event.currentTarget.dataset.flightId;
+    const id = event.target.dataset.flightId;
     const flight = flightsMap[id];
     console.log("flight: ", flight);
     bookFlightRequest(flight).then(onSuccess, onError).then(json => {
         console.log(json);
         alert("Prenotazione effettuata con successo!");
         window.location.href = "/prenotazioni";
-    }).catch(onErrorFlReq);
+    }).catch(onErrorBookingReq);
+}
+
+function showModalBooking(event) {
+    show(modalBooking);
+    const confirmButton = modalBooking.querySelector("#confirm-button");
+    const closeButton = modalBooking.querySelector("#close-button");
+    confirmButton.dataset.flightId = event.target.dataset.flightId;
+    flightsMap[confirmButton.dataset.flightId].bagaglio = modalBooking.querySelector("#bagaglio").value;
+    confirmButton.addEventListener("click", e => e.preventDefault());
+    confirmButton.addEventListener("click", prenotaVolo);
+    closeButton.addEventListener("click", e => e.preventDefault());
+    closeButton.addEventListener("click", () => hide(modalBooking));
 }
 
 
@@ -56,7 +68,7 @@ function createTickets(flights) {
             buttonPrenota.classList.add("app-button", "prenota");
             buttonPrenota.textContent = "Prenota volo";
             buttonPrenota.dataset.flightId = flight.id;
-            buttonPrenota.addEventListener("click", prenotaVolo);
+            buttonPrenota.addEventListener("click", showModalBooking);
             container.appendChild(buttonPrenota);
             content.appendChild(container);
 
@@ -66,6 +78,20 @@ function createTickets(flights) {
         });
     }
     show(result);
+}
+
+function onErrorBookingReq(errorResp) {
+    console.log(errorResp);
+    errorResp.then(errors => {
+        const errorDiv = document.querySelector("#booking-error");
+        errorDiv.innerHTML = "";
+        for (const error of errors) {
+            p = document.createElement("p");
+            p.textContent = error;
+            errorDiv.appendChild(p);
+            show(errorDiv);
+        }
+    });
 }
 
 
@@ -97,7 +123,7 @@ function search(event) {
         hide(form);
         show(backButton);
     }).catch(onErrorFlReq)
-    .finally(hideLoader);
+        .finally(hideLoader);
 
 }
 
@@ -116,3 +142,5 @@ const backButton = document.querySelector("#back-button");
 backButton.addEventListener("click", back);
 
 const result = document.querySelector("#result");
+
+const modalBooking = document.querySelector("#modal-booking");

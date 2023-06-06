@@ -3,13 +3,11 @@ function prenotazioniRequest() {
 }
 
 function cancellaPrenotazioneRequest(id) {
-    askConfirmModal("Sei sicuro di voler cancellare la prenotazione?").then(() => {
-        formData = new FormData();
-        formData.append("id", id);
-        return fetch("/api/prenotazioni/eliminaPrenotazione", {
-            method: "POST",
-            body: formData
-        });
+    formData = new FormData();
+    formData.append("id", id);
+    return fetch("/api/prenotazioni/eliminaPrenotazione", {
+        method: "POST",
+        body: formData
     });
 }
 
@@ -29,11 +27,13 @@ function getTicketElement(flight) {
 
 function cancellaPrenotazione(event) {
     const id = event.currentTarget.dataset.flightId;
-    cancellaPrenotazioneRequest(id).then(onSuccess, onError).then(json => {
-        console.log(json);
-        alert("Prenotazione cancellata con successo!");
-        location.reload();
-    }).catch(onErrorFlReq);
+    askConfirmModal("Sei sicuro di voler cancellare la prenotazione?").then(() => {
+        cancellaPrenotazioneRequest(id).then(onSuccess, onError).then(json => {
+            console.log(json);
+            alert("Prenotazione cancellata con successo!");
+            loadContent();
+        }).catch(onErrorFlReq);
+    });
 }
 
 function onShownFlightDetails(event) {
@@ -82,11 +82,15 @@ function onErrorFlReq(errorResp) {
     });
 }
 
-showLoader();
-prenotazioniRequest().then(onSuccess, onError).then(json => {
-    createTickets(json);
-}).catch(onErrorFlReq)
-    .finally(hideLoader);
+function loadContent() {
+    showLoader();
+    prenotazioniRequest().then(onSuccess, onError).then(json => {
+        createTickets(json);
+    }).catch(onErrorFlReq)
+        .finally(hideLoader);
+}
+
+loadContent();
 
 
 const result = document.querySelector("#result");
