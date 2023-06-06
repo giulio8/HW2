@@ -14,9 +14,8 @@
         <div id="overlay">
             <h1 id="title">Galleria delle destinazioni</h1>
             <p>
-                Qui potrai condividere con il mondo le tue avventure, e viaggiare con
-                la mente in mondi nuovi dando un'occhiata alle foto postate
-                dagli altri.
+                Carica le foto delle tue destinazioni preferite, sia che ci sia già stato, sia che tu voglia andarci!
+                Ti suggeriremo le offerte migliori per raggiungerle!
             </p>
         </div>
     </header>
@@ -46,8 +45,8 @@
                         <input type="text" name="titolo" id="titolo" placeholder="Luogo di destinazione">
                     </div>
                     <div id="description-input" class="app-input-box">
-                        <label for="description">Inserisci una descrizione</label>
-                        <input type="text" name="descrizione">
+                        <label for="descrizione">Inserisci una descrizione</label>
+                        <textarea type="text" name="descrizione"></textarea>
                     </div>
                     <button id="post-button" class="app-button">Posta</button>
                     <button id="close-button" class="app-dismiss-button">Annulla</button>

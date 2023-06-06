@@ -101,16 +101,15 @@
 }
 
 @media (max-width: 768px) {
-    #gallery {
-        margin-top: 100px;
-    }
 
     .destination {
         flex-direction: column;
+        height: auto;
     }
 
     .destination .text {
         padding: 0;
+
     }
 
     .gallery-image .buttons {

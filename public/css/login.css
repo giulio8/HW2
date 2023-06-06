@@ -35,3 +35,9 @@ div.app-input-box img.close {
 .signup {
     margin: 40px;
 }
+
+@media (max-width: 768px) {
+    #form-box {
+        max-width: 90vw;
+    }
+}

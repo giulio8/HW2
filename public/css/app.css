@@ -64,18 +64,18 @@ div.app-input-box {
   border-radius: 4px;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: space-between;
   background-color: white;
 }
 
 div.app-input-box input {
-    padding: 10px;
-    margin: 10px;
-    font-size: var(--base-font-size);
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  padding: 10px;
+  margin: 10px;
+  font-size: var(--base-font-size);
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .app-button,
@@ -132,5 +132,13 @@ div.app-input-box input {
 @media (max-width: 768px) {
   .content {
     width: 95vw;
+  }
+
+  div.app-input-box {
+    flex-wrap: wrap;
+  }
+
+  .modal-content {
+    max-width: 90%;
   }
 }
